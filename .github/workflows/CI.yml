@@ -76,7 +76,7 @@ jobs:
         prefix-key: "v0-rust-ubuntu-24.04"
     - name: Install cargo-public-api-crates
       run: |
-        cargo install --git https://github.com/davidpdrsn/cargo-public-api-crates
+        cargo install --git https://github.com/Hmiki/cargo-public-api-crates --branch Update-rustdoc-types
     - name: Build rustdoc
       run: |
         cargo rustdoc --all-features --manifest-path ${{ matrix.crate }}/Cargo.toml -- -Z unstable-options --output-format json
