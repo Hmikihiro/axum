@@ -5,6 +5,7 @@ env:
   MSRV: '1.75'
 
 on:
+  workflow_dispatch:
   push:
     branches:
     - main
@@ -66,16 +67,14 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     # Pinned version due to failing `cargo-public-api-crates`.
-    - uses: dtolnay/rust-toolchain@master
-      with:
-        toolchain: nightly-2024-06-06
+    - uses: dtolnay/rust-toolchain@nightly
     - uses: Swatinem/rust-cache@v2
       with:
         save-if: ${{ github.ref == 'refs/heads/main' }}
         prefix-key: "v0-rust-ubuntu-24.04"
     - name: Install cargo-public-api-crates
       run: |
-        cargo install --git https://github.com/davidpdrsn/cargo-public-api-crates
+        cargo install --git https://github.com/Hmikihiro/cargo-public-api-crates --branch Update-rustdoc-types
     - name: Build rustdoc
       run: |
         cargo rustdoc --all-features --manifest-path ${{ matrix.crate }}/Cargo.toml -- -Z unstable-options --output-format json
